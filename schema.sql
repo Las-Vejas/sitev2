@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS guestbook;
+CREATE TABLE guestbook (
+  id PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  message TEXT NOT NULL,
+  link TEXT,
+  style TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);

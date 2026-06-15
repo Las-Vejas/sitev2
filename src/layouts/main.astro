@@ -3,6 +3,7 @@ import "@/styles/global.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from "@/components/Navbar.astro"
 import Footer from "@/components/Footer.astro"
+import { userData } from "../../shared-data"
 ---
 
 <html lang="en">
@@ -10,8 +11,9 @@ import Footer from "@/components/Footer.astro"
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Astro App</title>
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9236c0af92354b85802c370f4a9e731a"}'></script><!-- End Cloudflare Web Analytics -->
+    <title>vejas.zip</title>
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9236c0af92354b85802c370f4a9e731a"}'></script><!-- End Cloudflare Web Analytics -->
+    <link rel="preconnect" href=${userData.cdn.baseUrl} />
   </head>
   <body>
     <ThemeProvider

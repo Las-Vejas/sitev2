@@ -1,0 +1,4 @@
+[[d1_databases]]
+binding = "DB" # This is how you access it in code: context.env.DB
+database_name = "guestbook"
+database_id = "11b3360f-0025-4331-adb2-a86eb55c5e10"

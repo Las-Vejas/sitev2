@@ -2,12 +2,7 @@
 import Layout from "@/layouts/main.astro"
 import { Button } from "@/components/ui/button"
 import { ArrowUpRight } from "lucide-react"
-
-const HeroDark = "https://cdn.vejas.zip/assets/hero-dark.svg"
-const HeroLight = "https://cdn.vejas.zip/assets/hero-light.svg"
-const GitHub = "https://cdn.vejas.zip/assets/icons/Github.svg"
-const TwinImg = "https://cdn.vejas.zip/assets/projectimages/Twin3D.png"
-const KazePCB = "https://cdn.vejas.zip/assets/projectimages/KazePCB.png"
+import { userData } from "@/lib/user-data"
 ---
 
 <Layout>
@@ -16,13 +11,13 @@ const KazePCB = "https://cdn.vejas.zip/assets/projectimages/KazePCB.png"
     class="flex flex-col w-full p-6 pt-32 pb-48 items-center justify-start text-center gap-6"
   >
     <img
-      src={HeroDark}
+      src={userData.cdn.assets.heroDark}
       alt="Hero illustration"
       aria-label="Vejas S"
       class="w-full max-w-4xl hidden dark:block"
     />
     <img
-      src={HeroLight}
+      src={userData.cdn.assets.heroLight}
       alt="Hero illustration"
       aria-label="Vejas S"
       class="w-full max-w-4xl dark:hidden"
@@ -38,7 +33,7 @@ const KazePCB = "https://cdn.vejas.zip/assets/projectimages/KazePCB.png"
   <div class="grid grid-cols-1 lg:grid-cols-2 w-full border-t border-border/40 items-start mb-32">
 
     <!-- PROJECTS -->
-    <div class="flex items-center flex-col justify-center p-12 border-r border-border/40">
+    <div class="flex items-center flex-col justify-center p-12 border-r px-24 border-border/40">
       <h1 class="text-7xl font-serif pb-12">Projects</h1>
 
       <div class="pb-6">
@@ -46,7 +41,7 @@ const KazePCB = "https://cdn.vejas.zip/assets/projectimages/KazePCB.png"
         <!-- Project 1 -->
         <div class="flex items-start gap-4 pb-10">
           <img
-            src={TwinImg}
+            src={userData.cdn.assets.projectImages.twin}
             alt="Image of Twin PCB"
             class="w-2/5 h-auto rounded-2xl object-cover shrink-0"
           />
@@ -66,9 +61,9 @@ const KazePCB = "https://cdn.vejas.zip/assets/projectimages/KazePCB.png"
                 </Button>
               </a>
 
-              <a href="https://github.com/las-vejas/twin" target="_blank">
+              <a href=${userData.social.github} target="_blank">
                 <Button variant="outline" size="sm">
-                  <img src={GitHub} alt="" class="size-4" />
+                  <img src={userData.cdn.assets.githubIcon} alt="" class="size-4" />
                   Repository
                 </Button>
               </a>
@@ -79,7 +74,7 @@ const KazePCB = "https://cdn.vejas.zip/assets/projectimages/KazePCB.png"
         <!-- Project 2 -->
         <div class="flex flex-row-reverse items-start gap-4 pb-10">
           <img
-            src={KazePCB}
+            src={userData.cdn.assets.projectImages.kaze}
             alt="Image of Kaze PCB"
             class="w-2/5 h-auto rounded-2xl object-cover shrink-0"
           />
@@ -99,9 +94,9 @@ const KazePCB = "https://cdn.vejas.zip/assets/projectimages/KazePCB.png"
                 </Button>
               </a>
 
-              <a href="https://github.com/las-vejas/kaze" target="_blank">
+              <a href=${userData.social.github} target="_blank">
                 <Button variant="outline" size="sm">
-                  <img src={GitHub} alt="" class="size-4" />
+                  <img src={userData.cdn.assets.githubIcon} alt="" class="size-4" />
                   Repository
                 </Button>
               </a>
