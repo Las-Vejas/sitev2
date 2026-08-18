@@ -1,13 +1,13 @@
 ---
 title: "vejas.zip"
 tags: ["software", "astro"]
-description: "Blah blah blah... etc"
-image: "../../assets/projectimages/Twin3D.png"
+description: "The page you're on right now!"
+image: "../../assets/projectimages/vejaszip.png"
 links:
   - label: "Visit"
     icon: "link"
     url: "https://google.com"
-    variant: ""
+    variant: "default"
 
 github: "https://github.com/las-vejas/sitev2"
 date: "16-06-2026"

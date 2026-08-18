@@ -9,7 +9,7 @@ links:
     url: "https://blueprint.hackclub.com/projects/9353"
     color: ""
   - label: "Visit"
-    icon: "bp"
+    icon: "link"
     url: "https://shawty.app"
     color: ""
 github: "https://github.com/las-vejas/shawty"
@@ -21,6 +21,4 @@ featured: true
 
 Shawty was my first attempt at a fully built out Svelte project which ended up as a pretty nice end product. I built the app with SvelteKit and spent a nice 15 hours on the website.
 
-I built Shawty for the Flavortown program run by [Hack Club](https://hackclub.com) and shipped it for amazing prizes that Hack Club offers.  
-
-I used 
+I built Shawty for the Flavortown program run by [Hack Club](https://hackclub.com) and shipped it for amazing prizes that Hack Club offers.

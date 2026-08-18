@@ -1,0 +1,278 @@
+---
+import Layout from "@/layouts/main.astro";
+---
+
+<Layout>
+  <main class="mx-auto min-h-screen w-full max-w-6xl px-6 py-24 md:px-10">
+    <section class="mx-auto max-w-2xl text-center">
+      <p class="mb-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">
+        Draft Route
+      </p>
+      <h1 class="font-serif text-5xl tracking-tight md:text-6xl">
+        Guestbook Test
+      </h1>
+      <p class="mt-4 text-sm leading-6 text-muted-foreground md:text-base">
+        A softer, more straightforward guestbook draft. Leave a note, sign your
+        name, and the page will try to save it to the existing guestbook API.
+      </p>
+    </section>
+
+    <section class="mt-16 grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+      <div class="rounded-[2rem] border border-border bg-card p-6 shadow-sm md:p-8">
+        <div class="mb-8 flex items-start justify-between gap-4">
+          <div>
+            <p class="text-sm font-medium text-muted-foreground">
+              Leave a message
+            </p>
+            <h2 class="mt-1 font-serif text-3xl">Pin something kind to the wall</h2>
+          </div>
+          <div class="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
+            public notes
+          </div>
+        </div>
+
+        <form id="guestbookTestForm" class="space-y-5">
+          <div class="grid gap-5 sm:grid-cols-2">
+            <fieldset class="space-y-2">
+              <legend class="text-sm font-medium">Name</legend>
+              <input
+                class="w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm outline-none transition focus:border-foreground"
+                type="text"
+                name="name"
+                placeholder="Your name"
+                required
+              />
+            </fieldset>
+
+            <fieldset class="space-y-2">
+              <legend class="text-sm font-medium">Website</legend>
+              <input
+                class="w-full rounded-2xl border border-border bg-background px-4 py-3 text-sm outline-none transition focus:border-foreground"
+                type="url"
+                name="website"
+                placeholder="https://example.com"
+              />
+            </fieldset>
+          </div>
+
+          <fieldset class="space-y-2">
+            <legend class="text-sm font-medium">Message</legend>
+            <textarea
+              class="min-h-40 w-full rounded-[1.5rem] border border-border bg-background px-4 py-3 text-sm leading-6 outline-none transition focus:border-foreground"
+              name="message"
+              placeholder="I love the hardware work, the typography, the experiments, the weird little details..."
+              required
+            ></textarea>
+          </fieldset>
+
+          <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <fieldset class="space-y-2">
+              <legend class="text-sm font-medium">Card style</legend>
+              <select
+                class="rounded-2xl border border-border bg-background px-4 py-3 text-sm outline-none transition focus:border-foreground"
+                name="bg_style"
+              >
+                <option value="hackclub">Hack Club</option>
+                <option value="orange">Orange</option>
+                <option value="beige">Beige</option>
+                <option value="blue">Blue</option>
+                <option value="pink">Pink</option>
+                <option value="checkers">Checkers</option>
+              </select>
+            </fieldset>
+
+            <div class="flex flex-col items-start gap-3 sm:items-end">
+              <button
+                class="inline-flex items-center justify-center rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition hover:opacity-90"
+                type="submit"
+              >
+                Post to guestbook
+              </button>
+              <p id="guestbookTestStatus" class="text-xs text-muted-foreground">
+                Draft mode with live API hookup.
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="rounded-[2rem] border border-border bg-muted/30 p-4 md:p-5">
+        <div class="mb-4 flex items-center justify-between gap-4 px-2 py-1">
+          <div>
+            <p class="text-sm font-medium text-muted-foreground">Preview wall</p>
+            <h2 class="font-serif text-3xl">Recent notes</h2>
+          </div>
+          <div class="rounded-full border border-border bg-background px-3 py-1 text-xs text-muted-foreground">
+            newest first
+          </div>
+        </div>
+
+        <div id="guestbookTestEntries" class="space-y-4"></div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  type Entry = {
+    name: string;
+    message: string;
+    style: string;
+    link?: string;
+    created_at?: string;
+  };
+
+  const sampleEntries: Entry[] = [
+    {
+      name: "Nora",
+      message: "This version feels more welcoming right away. The writing area has room to breathe and the notes feel like little artifacts instead of plain comments.",
+      style: "hackclub",
+      link: "https://example.com",
+      created_at: new Date().toISOString(),
+    },
+    {
+      name: "Ari",
+      message: "Would absolutely sign this after reading a project post. It feels personal without getting too noisy.",
+      style: "blue",
+      created_at: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(),
+    },
+    {
+      name: "Mika",
+      message: "Nice balance between clean and playful. The page already works as a draft even before polishing.",
+      style: "pink",
+      created_at: new Date(Date.now() - 1000 * 60 * 60 * 28).toISOString(),
+    },
+  ];
+
+  const styleClasses: Record<string, string> = {
+    hackclub: "border-l-4 border-l-foreground bg-card",
+    orange: "border-l-4 border-l-orange-500 bg-card",
+    beige: "border-l-4 border-l-stone-400 bg-card",
+    blue: "border-l-4 border-l-sky-500 bg-card",
+    pink: "border-l-4 border-l-pink-500 bg-card",
+    checkers: "border-l-4 border-l-emerald-500 bg-card",
+  };
+
+  const form = document.getElementById("guestbookTestForm") as HTMLFormElement | null;
+  const entriesEl = document.getElementById("guestbookTestEntries");
+  const statusEl = document.getElementById("guestbookTestStatus");
+
+  function escapeHtml(value: string) {
+    return value
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+  }
+
+  function formatDate(value?: string) {
+    if (!value) return "just now";
+
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "recently";
+
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  }
+
+  function renderEntries(entries: Entry[]) {
+    if (!entriesEl) return;
+
+    entriesEl.innerHTML = entries
+      .map((entry) => {
+        const wrapperClass = styleClasses[entry.style] ?? styleClasses.beige;
+        const safeName = escapeHtml(entry.name);
+        const safeMessage = escapeHtml(entry.message);
+        const safeLink = entry.link ? escapeHtml(entry.link) : "";
+        const dateLabel = formatDate(entry.created_at);
+
+        const nameMarkup = safeLink
+          ? `<a class="transition hover:opacity-70" href="${safeLink}" target="_blank" rel="noreferrer">${safeName}</a>`
+          : `<span>${safeName}</span>`;
+
+        return `
+          <article class="rounded-[1.75rem] border border-border p-5 shadow-sm ${wrapperClass}">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="font-medium">${nameMarkup}</p>
+                <p class="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">${dateLabel}</p>
+              </div>
+              <span class="rounded-full border border-border px-2.5 py-1 text-[11px] text-muted-foreground">${escapeHtml(entry.style)}</span>
+            </div>
+            <p class="mt-5 text-sm leading-6 text-foreground/90">${safeMessage}</p>
+          </article>
+        `;
+      })
+      .join("");
+  }
+
+  async function loadEntries() {
+    renderEntries(sampleEntries);
+
+    try {
+      const response = await fetch("/api/guestbook");
+      if (!response.ok) throw new Error("Unable to load entries");
+
+      const liveEntries = (await response.json()) as Entry[];
+      if (Array.isArray(liveEntries) && liveEntries.length > 0) {
+        renderEntries(liveEntries);
+        if (statusEl) statusEl.textContent = "Loaded live entries from /api/guestbook.";
+      } else if (statusEl) {
+        statusEl.textContent = "No live entries yet, showing seeded draft notes.";
+      }
+    } catch {
+      if (statusEl) {
+        statusEl.textContent = "API unavailable here, showing seeded draft notes instead.";
+      }
+    }
+  }
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!form) return;
+
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    if (statusEl) {
+      statusEl.textContent = "Posting note...";
+    }
+
+    try {
+      const response = await fetch("/api/guestbook", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Unable to submit");
+      }
+
+      form.reset();
+      if (statusEl) {
+        statusEl.textContent = "Posted successfully. Refreshing the wall...";
+      }
+      await loadEntries();
+    } catch {
+      const optimisticEntry: Entry = {
+        name: String(payload.name || "Anonymous"),
+        message: String(payload.message || ""),
+        style: String(payload.bg_style || "beige"),
+        link: payload.website ? String(payload.website) : undefined,
+        created_at: new Date().toISOString(),
+      };
+
+      renderEntries([optimisticEntry, ...sampleEntries]);
+      if (statusEl) {
+        statusEl.textContent = "Saved as a local draft preview because the API was unavailable.";
+      }
+    }
+  });
+
+  loadEntries();
+</script>

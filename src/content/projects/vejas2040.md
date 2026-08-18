@@ -1,10 +1,10 @@
 ---
 title: "Vejas2040"
-description: "Blah blah blah... etc"
+description: "An RP2040 Devboard"
 
 github: "https://github.com/las-vejas/vejas2040"
 date: "01-03-2026"
-featured: true
+featured: false
 ---
 
 ## About Kaze

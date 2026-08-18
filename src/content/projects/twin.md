@@ -1,7 +1,7 @@
 ---
 title: "Twin"
 tags: ["hardware", "PCB"]
-description: "Blah blah blah... etc"
+description: "A macropad with wireless connectivity"
 image: "../../assets/projectimages/Twin3D.png"
 links:
   - label: "Read Journal"
