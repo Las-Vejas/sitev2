@@ -1,10 +1,10 @@
-# Astro + React + TypeScript + shadcn/ui
+# Vejas.zip v2
 
-This is a template for a new Astro project with React, TypeScript, and shadcn/ui.
+This is my personal page made with Astro and Tailwind.
 
 ## Adding components
 
-To add components to your app, run the following command:
+To add components to my app, run the following command:
 
 ```bash
 npx shadcn@latest add button
