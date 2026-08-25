@@ -12,12 +12,12 @@ import { ChevronLeft, ChevronRight, Send } from 'lucide-react';
       </p>
 
       <div class="grid grid-cols-5 grid-rows-4 gap-3">
-        <form id="guestbook-form">
-          <input type="text" name="name" required />
-          <textarea name="message" required></textarea>
-          <button type="submit">Sign</button>
+        <form id="guestbook-form" class="flex items-center flex-col max-w-[420px] max-h-[224px]">
+          <input type="text" name="name" placeholder="John Doe" required class="border-amber-400 border-2 w-fill"/>
+          <textarea name="message" placeholder="Your message goes here." required class="border-red-400 border-2"></textarea>
+          <button type="submit" class="border-blue-400 border-2">Sign</button>
         </form>
-        <div class="bg-amber-400 min-w-40 min-h-30">yo</div>
+        <div class="bg-amber-400 min-w-40 min-h-30 max-w-[105] max-h-[56]">yo</div>
         <div class="bg-cyan-400 min-w-40 min-h-30">yo</div>
         <div class="bg-green-400 min-w-40 min-h-30">yo</div>
         <div class="bg-amber-400 min-w-40 min-h-30">yo</div>
