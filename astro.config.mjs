@@ -10,6 +10,11 @@ export default defineConfig({
     ssr: {
       external: ['cloudflare:workers'],
     },
+    build: {
+      rollupOptions: {
+        external: ['cloudflare:workers'],
+      },
+    },
   },
   integrations: [react()],
   output: 'server',
