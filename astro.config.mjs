@@ -7,20 +7,8 @@ import cloudflare from "@astrojs/cloudflare"
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
-    ssr: {
-      external: ['cloudflare:workers'],
-    },
-    build: {
-      rollupOptions: {
-        external: ['cloudflare:workers'],
-      },
-    },
   },
   integrations: [react()],
   output: 'server',
-  adapter: cloudflare({
-    platformProxy: {
-      enabled: true,
-    },
-  }),
+  adapter: cloudflare(),
 })
