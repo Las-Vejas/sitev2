@@ -1,3 +1,5 @@
+pages_build_output_dir = "dist"
+
 [[d1_databases]]
 binding = "DB" # This is how you access it in code: context.env.DB
 database_name = "guestbook"

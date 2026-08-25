@@ -1,22 +1,7 @@
 ---
 import Layout from '@/layouts/main.astro';
 import { GuestbookForm } from '@/components/GuestbookForm';
-import GuestbookCard from '@/components/GuestbookCard.astro';
-import { supabase } from '../db/supabase';
-
-const { data, error } = await supabase.from("messages").select('*').order('created_at', { ascending: false });
-
-type Message = {
-  id: number;
-  name: string;
-  message: string;
-  email?: string;
-  url?: string;
-  design: string;
-  created_at: string;
-};
-
-const messages = (data || []) as Message[];
+import GuestbookCards from '@/components/GuestbookCards';
 ---
 
 <Layout>
@@ -29,16 +14,7 @@ const messages = (data || []) as Message[];
 
       <div class="grid gap-6 p-4 grid-cols-[repeat(auto-fit,minmax(400px,1fr))]">
         <GuestbookForm client:load />
-        {messages.map((msg) => (
-          <GuestbookCard
-            name={msg.name}
-            message={msg.message}
-            email={msg.email}
-            url={msg.url}
-            design={msg.design}
-            created_at={msg.created_at}
-          />
-        ))}
+        <GuestbookCards client:load />
       </div>
     </main>
   </div>
