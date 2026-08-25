@@ -1,0 +1,57 @@
+---
+interface Props {
+  name: string;
+  message: string;
+  email?: string;
+  url?: string;
+  design: string;
+  created_at: string;
+}
+
+const DESIGN_IMAGES: Record<string, string> = {
+  plain: 'https://cdn.vejas.zip/assets/postcards/plain.png',
+  yellow: 'https://cdn.vejas.zip/assets/postcards/yellow.png',
+  asterisk: 'https://cdn.vejas.zip/assets/postcards/asterisk.png',
+  washi: 'https://cdn.vejas.zip/assets/postcards/washi.png',
+  cyan: 'https://cdn.vejas.zip/assets/postcards/cyan.png',
+  damaged: 'https://cdn.vejas.zip/assets/postcards/damaged.png',
+  pink: 'https://cdn.vejas.zip/assets/postcards/pink.png',
+  hackclub: 'https://cdn.vejas.zip/assets/postcards/hackclub.png',
+};
+
+const { name, message, email, url, design, created_at } = Astro.props;
+const imageUrl = DESIGN_IMAGES[design] || DESIGN_IMAGES.plain;
+
+const formatted_date = new Date(created_at.replace(' ', 'T')).toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+})
+---
+
+<div
+  class="aspect-[530.67/302] w-full p-5 flex flex-col justify-between gap-y-2 overflow-hidden rounded-2xl"
+  style={{
+    backgroundImage: `url('${imageUrl}')`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }}
+>
+  <div class="flex-1 w-full overflow-y-auto">
+    <p class="text-md text-gray-700 leading-relaxed wrap-break-word">
+      {message}
+    </p>
+  </div>
+  <div class="flex justify-between items-end w-full">
+    <div></div>
+    <div class="text-right">
+      <p class="text-xs text-gray-600">{formatted_date}</p>
+      {url ? (
+        <a href={url} target="_blank" rel="noopener noreferrer" class="font-semibold text-gray-800 underline truncate block">
+          {name}
+        </a>
+      ) : (
+        <p class="font-semibold text-gray-800">{name}</p>
+      )}
+    </div>
+  </div>
+</div>
