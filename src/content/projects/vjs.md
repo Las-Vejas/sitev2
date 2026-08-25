@@ -1,8 +1,8 @@
 ---
 title: "VJS"
-tags: ["software", "Slack bot"]
+tags: ["software", "slack", "bot"]
 description: "A Slack bot for my channel within the Hack Club Slack!"
-image: ""
+image: "../../assets/projectimages/vjs.png"
 links:
   - label: "Stardance"
     icon: "link"
@@ -18,3 +18,5 @@ featured: true
 I created VJS for the Stardance challenge hosted by Hack Club, it is a simple Slack bot written in JavaScript. It is used by calling the `/vjs` command with many features like getting the definition of a word to generating a qr code or checking the validity of an email!
 
 I spent around 8 hours of constant tinkering and added a total of 17 features!
+
+The bot can be tested in the Hack Club Slack.

@@ -1,6 +1,6 @@
 ---
 title: "Hackflare"
-tags: ["software", "PCB"]
+tags: ["software", "react"]
 description: "Hackflare UI, an in-house Cloudflare alternative for Hack Club"
 image: "../../assets/projectimages/HF.png"
 links:

@@ -7,7 +7,8 @@ const GitHubCDN = 'https://cdn.vejas.zip/assets/icons/Github.svg';
 const Github = './assets/icons/Github.svg';
 import { getCollection, render } from 'astro:content';
 import { Badge } from '@/components/ui/badge';
-const Blueprint = 'https://cdn.vejas.zip/assets/icons/bp.svg';
+const Blueprint = 'https://cdn.vejas.zip/assets/icons/bp.svg'
+const FT = 'https://cdn.vejas.zip/assets/icons/image.png'
 
 const projects = await getCollection('projects');
 const rendered = await Promise.all(projects.map(async (p: any) => ({ ...p, content: await render(p) })));
@@ -96,14 +97,14 @@ const rendered = await Promise.all(projects.map(async (p: any) => ({ ...p, conte
                       <img src={GitHubCDN} width="16" height="16" alt="globe" class="dark-mode-icon" />
                     )}
                     {link.icon === 'link' && <ArrowUpRight size={16} />}
-                    {link.icon === 'youtube' && (
-                      <img src={GitHubCDN} width="16" height="16" alt="youtube" class="dark-mode-icon" />
-                    )}
                     {link.icon === 'download' && (
                       <img src={GitHubCDN} width="16" height="16" alt="download" class="dark-mode-icon" />
                     )}
                     {link.icon === 'bp' && (
                       <img src={Blueprint} width="16" height="16" alt="blueprint" class="" />
+                    )}
+                    {link.icon === 'ft' && (
+                      <img src={FT} width="16" height="16" alt="flavortown"/>
                     )}
                     {link.label}
                   </Button>

@@ -18,7 +18,7 @@ const projects = defineCollection({
           z.object({
             label: z.string(),
             url: z.string().url(),
-            icon: z.enum(["globe", "link", "youtube", "download", "bp"]).optional(),
+            icon: z.enum(["globe", "link", "youtube", "download", "bp", "ft"]).optional(),
             variant: z.enum(["default", "outline", "secondary", "ghost", "destructive", "link", "blueprint"]).optional(),
           })
         )
