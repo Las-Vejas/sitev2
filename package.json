@@ -1,5 +1,5 @@
 {
-  "name": "astro-app",
+  "name": "vejas-zip",
   "type": "module",
   "version": "0.0.1",
   "private": true,
@@ -16,7 +16,8 @@
     "typecheck": "astro check"
   },
   "dependencies": {
-    "@astrojs/react": "^5",
+    "@astrojs/cloudflare": "^14.2.5",
+    "@astrojs/react": "^6.0.4",
     "@fontsource-variable/instrument-sans": "^5.2.8",
     "@fontsource-variable/inter": "^5.2.8",
     "@fontsource/instrument-serif": "^5.2.8",
@@ -24,13 +25,13 @@
     "@tailwindcss/vite": "^4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "astro": "^6",
+    "astro": "^7.2.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "express": "^5.2.1",
     "lucide-react": "^1.17.0",
     "next-themes": "^0.4.6",
-    "nodemailer": "^8.0.11",
+    "nodemailer": "^9.0.5",
     "radix-ui": "^1.5.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
@@ -42,8 +43,7 @@
     "tw-animate-css": "^1.4.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9",
-    "@cloudflare/workers-types": "^4.20260611.1",
+    "@astrojs/check": "^0.9.10",
     "@eslint/js": "^10",
     "@tailwindcss/typography": "^0.5.20",
     "eslint": "^10",
@@ -54,10 +54,6 @@
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "typescript": "~6",
-    "typescript-eslint": "^8",
-    "wrangler": "^4.100.0"
-  },
-  "overrides": {
-    "vite": "^7"
+    "typescript-eslint": "^8"
   }
 }
