@@ -18,8 +18,8 @@ export default function GuestbookCards() {
   useEffect(() => {
     fetch('/api/messages')
       .then((res) => res.json())
-      .then((data) => {
-        setMessages(data);
+      .then((data: unknown) => {
+        setMessages(data as Message[]);
         setLoading(false);
       })
       .catch((err) => {
