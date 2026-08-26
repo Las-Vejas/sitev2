@@ -3,6 +3,7 @@ import Layout from '@/layouts/main.astro';
 import { GuestbookForm } from '@/components/GuestbookForm';
 import GuestbookCard from '@/components/GuestbookCard.astro';
 import { supabase } from '../db/supabase';
+import { POSTCARD_DESIGNS } from '@/lib/postcards';
 
 const { data, error } = await supabase.from("messages").select('*').order('created_at', { ascending: false });
 
@@ -21,6 +22,9 @@ export const prerender = false
 ---
 
 <Layout>
+  {POSTCARD_DESIGNS.map(({ imageUrl }) => (
+    <link rel="preload" as="image" href={imageUrl} />
+  ))}
   <div class="min-h-screen antialiased font-sans flex flex-col justify-between">
     <main class="w-full mx-auto px-6 py-16 flex-1 text-center">
       <h1 class="text-6xl font-serif tracking-tight mb-3">Guestbook</h1>

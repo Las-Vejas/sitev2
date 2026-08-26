@@ -4,49 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Field } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-
-const DESIGNS = [
-  {
-    id: 'plain',
-    label: 'Plain',
-    imageUrl: 'https://cdn.vejas.zip/assets/postcards/plain.png',
-  },
-  {
-    id: 'yellow',
-    label: 'Yellow',
-    imageUrl: 'https://cdn.vejas.zip/assets/postcards/yellow.png',
-  },
-  {
-    id: 'asterisk',
-    label: 'Asterisk',
-    imageUrl: 'https://cdn.vejas.zip/assets/postcards/asterisk.png',
-  },
-  {
-    id: 'washi',
-    label: 'Washi',
-    imageUrl: 'https://cdn.vejas.zip/assets/postcards/washi.png',
-  },
-  {
-    id: 'cyan',
-    label: 'Cyan',
-    imageUrl: 'https://cdn.vejas.zip/assets/postcards/cyan.png',
-  },
-  {
-    id: 'damaged',
-    label: 'Damaged',
-    imageUrl: 'https://cdn.vejas.zip/assets/postcards/damaged.png',
-  },
-  {
-    id: 'pink',
-    label: 'Pink',
-    imageUrl: 'https://cdn.vejas.zip/assets/postcards/pink.png',
-  },
-  {
-    id: 'hackclub',
-    label: 'Hack Club',
-    imageUrl: 'https://cdn.vejas.zip/assets/postcards/hackclub.png',
-  },
-];
+import { POSTCARD_DESIGNS as DESIGNS } from '@/lib/postcards';
 
 export function GuestbookForm() {
   const [currentDesignIndex, setCurrentDesignIndex] = useState(0);
