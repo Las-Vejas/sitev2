@@ -1,0 +1,76 @@
+---
+import Layout from '@/layouts/main.astro';
+import { Button } from '@/components/ui/button';
+import { Image } from 'astro:assets';
+import { ArrowUpRight } from 'lucide-react';
+import { getCollection } from 'astro:content';
+import { Badge } from '@/components/ui/badge';
+const GitHubCDN = 'https://cdn.vejas.zip/assets/icons/Github.svg';
+
+const projects = await getCollection('projects');
+---
+
+<style>
+  :global(.dark) .dark-mode-icon {
+    filter: invert() brightness(2);
+  }
+</style>
+
+<Layout>
+  <div class="flex flex-col items-center justify-center text-center pt-32 pb-20 px-6">
+    <h1 class="text-8xl font-serif mb-4">Projects</h1>
+    <p class="text-muted-foreground text-sm">Some of my best work.</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 border-border/40 w-full rounded-2xl">
+    {
+      projects.map(({ id, data }) => (
+        <a
+          href={`/projects/${id}`}
+          class="project-card group relative flex flex-col p-8 border border-border/40 hover:bg-accent/20 rounded-2xl"
+        >
+          <div class="flex items-start gap-6">
+            {data.image && (
+              <Image
+                src={data.image}
+                alt={data.title}
+                class="w-2/5 rounded-xl object-cover shrink-0 aspect-video"
+                transition:name={`project-image-${id}`}
+              />
+            )}
+            <div class="flex flex-col gap-3 flex-1">
+              <h2 class="text-4xl font-serif leading-tight" transition:name={`project-title-${id}`}>
+                {data.title}
+              </h2>
+              <div class="flex flex-wrap gap-2">
+                {data.tags?.map((tag: string) => <Badge variant="secondary">{tag}</Badge>)}
+              </div>
+              <p class="text-sm text-muted-foreground leading-relaxed">{data.description}</p>
+              <div class="flex items-center gap-2 mt-4">
+                <Button
+                  variant="default"
+                  size="sm"
+                  className="pointer-events-none flex items-center gap-2 whitespace-nowrap"
+                >
+                  <ArrowUpRight size={16} /> Read more
+                </Button>
+                {data.github && (
+                  <span
+                    onclick="event.preventDefault(); event.stopPropagation(); window.open(this.dataset.href, '_blank')"
+                    data-href={data.github}
+                    class="inline-block"
+                  >
+                    <Button variant="outline" size="sm" className="flex items-center gap-2 whitespace-nowrap">
+                      <img src={GitHubCDN} width="16" height="16" alt="Github" class="dark-mode-icon" />
+                      Repository
+                    </Button>
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</Layout>

@@ -1,0 +1,83 @@
+---
+import Layout from '@/layouts/main.astro';
+import { Button } from '@/components/ui/button';
+import { Image } from 'astro:assets';
+import { ArrowUpRight, ArrowLeft } from 'lucide-react';
+import { getCollection, getEntry, render } from 'astro:content';
+import { Badge } from '@/components/ui/badge';
+
+const GitHubCDN = 'https://cdn.vejas.zip/assets/icons/Github.svg';
+const Blueprint = 'https://cdn.vejas.zip/assets/icons/bp.svg';
+const FT = 'https://cdn.vejas.zip/assets/icons/image.png';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((p) => ({ params: { slug: p.id } }));
+}
+
+const { slug } = Astro.params;
+const entry = await getEntry('projects', slug!);
+if (!entry) {
+  return Astro.redirect('/404');
+}
+const { data } = entry;
+const { Content } = await render(entry);
+---
+
+<style>
+  :global(.dark) .dark-mode-icon {
+    filter: invert(1) brightness(2);
+  }
+</style>
+
+<Layout>
+  <div class="max-w-3xl mx-auto px-6 pt-4 pb-20">
+    <a href="/projects" class="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-8">
+      <ArrowLeft size={14} /> Back to projects
+    </a>
+
+    {data.image && (
+      <Image
+        src={data.image}
+        alt={data.title}
+        class="w-full rounded-xl object-cover aspect-video mb-8"
+        transition:name={`project-image-${slug}`}
+      />
+    )}
+
+    <h1 class="text-5xl font-serif mb-4" transition:name={`project-title-${slug}`}>
+      {data.title}
+    </h1>
+
+    <div class="flex flex-wrap gap-2 mb-4">
+      {data.tags?.map((tag: string) => <Badge variant="secondary">{tag}</Badge>)}
+    </div>
+
+    <div class="flex flex-wrap gap-2 mb-10">
+      {data.github && (
+        <a href={data.github} target="_blank">
+          <Button variant="outline" size="sm" className="flex items-center gap-2">
+            <img src={GitHubCDN} width="16" height="16" alt="Github" class="dark-mode-icon" />
+            Repository
+          </Button>
+        </a>
+      )}
+      {data.links?.map((link) => (
+        <a href={link.url} target="_blank">
+          <Button variant={link.variant ?? 'outline'} size="sm" className="flex items-center gap-2">
+            {link.icon === 'globe' && <img src={GitHubCDN} width="16" height="16" alt="globe" class="dark-mode-icon" />}
+            {link.icon === 'link' && <ArrowUpRight size={16} />}
+            {link.icon === 'download' && <img src={GitHubCDN} width="16" height="16" alt="download" class="dark-mode-icon" />}
+            {link.icon === 'bp' && <img src={Blueprint} width="16" height="16" alt="blueprint" />}
+            {link.icon === 'ft' && <img src={FT} width="16" height="16" alt="flavortown" />}
+            {link.label}
+          </Button>
+        </a>
+      ))}
+    </div>
+
+    <div class="prose dark:prose-invert prose-sm max-w-none text-muted-foreground leading-relaxed">
+      <Content />
+    </div>
+  </div>
+</Layout>
