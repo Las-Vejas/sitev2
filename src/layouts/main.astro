@@ -5,37 +5,96 @@ import Navbar from "@/components/Navbar.astro"
 import Footer from "@/components/Footer.astro"
 import { userData } from "../../shared-data"
 import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title?: string
+  description?: string
+  image?: string
+  type?: "website" | "article"
+}
+
+const {
+  title = "vejas.zip",
+  description = "Personal site of a teen developer based in Luxembourg — hardware, PCB design, and web projects.",
+  image = userData.cdn.assets.heroLight,
+  type = "website",
+} = Astro.props
+
+const pageTitle = title === "vejas.zip" ? title : `${title} — vejas.zip`
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? "https://vejas.zip")
+const ogImageURL = new URL(image, Astro.site ?? "https://vejas.zip")
 ---
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>vejas.zip</title>
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9236c0af92354b85802c370f4a9e731a"}'></script><!-- End Cloudflare Web Analytics -->
-    <link rel="preconnect" href=${userData.cdn.baseUrl} />
-    <ClientRouter/>
-    <script is:inline>
-  const applyTheme = () => {
-    const isDark = localStorage.getItem("theme") === "dark"
-    document.documentElement.classList.toggle("dark", isDark)
-  }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="theme-color" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  applyTheme()
-  document.addEventListener("astro:after-swap", applyTheme)
-</script>
-  </head>
-  <body>
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
+  <title>{pageTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImageURL} />
+  <meta property="og:site_name" content="vejas.zip" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageURL} />
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9236c0af92354b85802c370f4a9e731a"}'></script><!-- End Cloudflare Web Analytics -->
+  <link rel="preconnect" href={userData.cdn.baseUrl} />
+  <ClientRouter/>
+  <script is:inline>
+    // 1. On first load: read theme from localStorage (or system preference) and apply it
+    const getPreferredTheme = () => {
+      const stored = localStorage.getItem("theme")
+      if (stored) return stored
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+    }
+
+    const applyTheme = (theme) => {
+      document.documentElement.classList.toggle("dark", theme === "dark")
+    }
+
+    applyTheme(getPreferredTheme())
+
+    // 2. Before every ClientRouter swap: stamp the current theme onto the incoming
+    //    document BEFORE it replaces the current one, so there's no flash at all.
+    document.addEventListener("astro:before-swap", (event) => {
+      const isDark = document.documentElement.classList.contains("dark")
+      event.newDocument.documentElement.classList.toggle("dark", isDark)
+    })
+
+    // 3. Click handling via delegation on document — survives the theme-toggle
+    //    button itself being replaced on every page swap.
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("#themeToggle")
+      if (!btn) return
+      const el = document.documentElement
+      el.classList.toggle("dark")
+      localStorage.setItem("theme", el.classList.contains("dark") ? "dark" : "light")
+    })
+  </script>
+</head>
+<body>
+  <ThemeProvider
+    attribute="class"
+    defaultTheme="system"
+    enableSystem
+    disableTransitionOnChange
+  >
     <Navbar />
-      <slot />
-      <Footer />
-    </ThemeProvider>
-  </body>
+    <slot />
+    <Footer />
+  </ThemeProvider>
+</body>
 </html>

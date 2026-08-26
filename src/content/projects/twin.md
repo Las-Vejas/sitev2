@@ -1,5 +1,5 @@
 ---
-title: "Twin"
+title: "Twin Macropad"
 tags: ["hardware", "PCB"]
 description: "A macropad with wireless connectivity"
 image: "../../assets/projectimages/Twin3D.png"
