@@ -1,0 +1,35 @@
+---
+import Layout from '@/layouts/main.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<Layout
+  title="Blog"
+  description="Writing on hardware, web projects, and whatever else."
+>
+  <div class="flex flex-col items-center justify-center text-center pt-32 pb-20 px-6">
+    <h1 class="text-8xl font-serif mb-4">Blog</h1>
+    <p class="text-muted-foreground text-sm">Thoughts, projects, and updates.</p>
+  </div>
+
+  <div class="max-w-2xl mx-auto px-6 pb-32 flex flex-col gap-2">
+    {posts.length === 0 && (
+      <p class="text-sm text-muted-foreground text-center">Posts coming soon!</p>
+    )}
+
+    {posts.map(({ id, data }) => (
+      <a
+        href={`/blog/${id}`}
+        class="group flex items-baseline justify-between gap-4 py-4 border-b border-border/40 hover:text-muted-foreground transition-colors"
+      >
+        <span class="text-2xl font-serif">{data.title}</span>
+        <span class="text-xs text-muted-foreground shrink-0">
+          {new Date(data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+        </span>
+      </a>
+    ))}
+  </div>
+</Layout>

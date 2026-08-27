@@ -1,29 +1,36 @@
+import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
+import { env } from 'cloudflare:workers';
 
-interface Env {
-  RESEND_API_KEY: string;
+export const prerender = false;
+
+interface ContactPayload {
+  name: string;
+  email: string;
+  message: string;
 }
 
-export const onRequestPost: PagesFunction<Env> = async (context) => {
+export const POST: APIRoute = async ({ request }) => {
   try {
-    // 1. Parse the incoming JSON body from your frontend script
-    const { name, email, message } = await context.request.json() as any;
+    const { name, email, message } = (await request.json()) as ContactPayload;
 
-    // 2. Initialize Resend with the secret variable from Cloudflare
-    const resend = new Resend(context.env.RESEND_API_KEY);
+    if (!name || !email || !message) {
+      return new Response(JSON.stringify({ error: 'Missing required fields' }), { status: 400 });
+    }
 
-    // 3. Dispatch the email payload
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      return new Response(JSON.stringify({ error: 'Invalid email address' }), { status: 400 });
+    }
+
+    const resend = new Resend(env.RESEND_API_KEY);
+
     const { data, error } = await resend.emails.send({
       from: `${name} <email@vejas.zip>`,
-      to: 'vejas@vejas.zip', // Where you want to receive the notifications
+      to: 'vejas@vejas.zip',
       replyTo: `${name} <${email}>`,
       subject: `New message from ${name}`,
-      html: `
-    <p><strong>Message:</strong> ${message}</p>
-    <hr />
-    <!-- Clicking this link inside your email client opens a direct response draft -->
-    <p><a href="mailto:${email}?subject=Re: Your contact form submission">Click here to reply directly to ${name}</a></p>
-  `,
+      html: `${message}`,
     });
 
     if (error) {
@@ -32,17 +39,15 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     return new Response(JSON.stringify({ success: true, id: data?.id }), {
       status: 200,
-      headers: { 'Content-Type': 'applications/json' },
+      headers: { 'Content-Type': 'application/json' },
     });
-
-  } catch (err: any) {
-    return new Response(JSON.stringify({ error: err.message || 'Internal Error' }), { 
-      status: 500 
-    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Internal Error';
+    return new Response(JSON.stringify({ error: message }), { status: 500 });
   }
 };
 
-export const onRequestOptions: PagesFunction = async () => {
+export const OPTIONS: APIRoute = async () => {
   return new Response(null, {
     status: 204,
     headers: {

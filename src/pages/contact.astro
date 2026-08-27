@@ -73,6 +73,8 @@ import { Mail, Send } from "lucide-react"
               <Send className="w-4 h-4" />
               <span>Send Message</span>
             </Button>
+
+            <p id="formMessage" class="text-sm hidden"></p>
           </form>
         </div>
 
@@ -176,25 +178,49 @@ import { Mail, Send } from "lucide-react"
 
 <script lang="ts">
   const form = document.getElementById("contactForm")
-  const message = document.getElementById("formMessage")
+  const formMessage = document.getElementById("formMessage")
 
   if (!form || !(form instanceof HTMLFormElement))
     throw new Error("Form not found")
 
+  const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]')
   form.addEventListener("submit", async (e) => {
     e.preventDefault()
+
+    formMessage?.classList.add("hidden")
+    if (submitButton) submitButton.disabled = true
+
     const data = Object.fromEntries(new FormData(form).entries())
-    const res = await fetch("/api/sendemail", {
-      method: "POST",
-      headers: { "Content-Type": "applications/json" },
-      body: JSON.stringify(data),
-    })
-    if (res.ok) {
-      message?.classList.remove("hidden")
-      form.reset()
-    } else {
-      alert("Error sending message.")
-      console.error(await res.text())
+
+    try {
+      const res = await fetch("/api/sendemail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+
+      if (res.ok) {
+        if (formMessage) {
+          formMessage.textContent = "Message sent — thanks for reaching out!"
+          formMessage.className = "text-sm text-green-600"
+        }
+        form.reset()
+      } else {
+        const errText = await res.text()
+        console.error(errText)
+        if (formMessage) {
+          formMessage.textContent = "Something went wrong sending your message. Please try again."
+          formMessage.className = "text-sm text-destructive"
+        }
+      }
+    } catch (err) {
+      console.error(err)
+      if (formMessage) {
+        formMessage.textContent = "Network error — please check your connection and try again."
+        formMessage.className = "text-sm text-destructive"
+      }
+    } finally {
+      if (submitButton) submitButton.disabled = false
     }
   })
 </script>
