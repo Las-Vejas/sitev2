@@ -2,19 +2,54 @@
 import Layout from "@/layouts/main.astro"
 ---
 <Layout>
-    <div class="flex flex-col items-center justify-center text-center pt-32 pb-20 px-6 gap-y-4">
-        <h1 class="text-8xl font-serif ">Webrings & buttons</h1>
-        <p class="text-muted-foreground text-sm">My friends from the internet!</p>
-        <div class="flex justify-evenly w-full">
-  <div class="flex flex-col gap-6 mt-8">
-    <h2 class="font- font-serif text-6xl">Pagerings</h2>
-    <pagering-link theme="auto" class="flex items-center justify-center m-auto"></pagering-link>
-  </div>
-  <div class="flex flex-col gap-6 mt-8">
-    <h2 class="font- font-serif text-6xl">Buttons</h2>
-    <p class="text-muted-foreground text-sm">My collection of 88x16 buttons!</p>
-    
-  </div>
-</div>
+  <div class="flex flex-col items-center justify-center text-center pt-32 pb-20 px-6 gap-y-4">
+    <h1 class="text-8xl font-serif">Webrings & buttons</h1>
+    <p class="text-muted-foreground text-sm">My friends from the internet!</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-6xl">
+      <div class="flex flex-col items-center gap-6 mt-8">
+        <h2 class="font-serif text-6xl">Pagerings</h2>
+        <pagering-link theme="auto" class="flex items-center justify-center m-auto"></pagering-link>
+      </div>
+
+      <div class="flex flex-col items-center gap-6 mt-8">
+        <h2 class="font-serif text-6xl">Buttons</h2>
+        <p class="text-muted-foreground text-sm">My collection of 88x31 buttons!</p>
+        <div><p class="text-sm text-foreground-muted">copy my buttons!</p><div class="flex mt-4 gap-2"><img src="https://cdn.vejas.zip/vejas-light.png" /><img src="https://cdn.vejas.zip/vejas-dark.png" /></div></div>
+        <div class="flex flex-wrap gap-3 justify-center p-6">
+          <a href="https://gideon.sh" target="_blank" rel="noopener noreferrer">
+            <img src="https://gideon.sh/88x31.gif" width="88" height="31" alt="Gideon's site button" class="border border-border/40" loading="lazy" />
+          </a>
+
+          <a href="https://88x31.nl" target="_blank" rel="noopener noreferrer">
+            <img src="https://88x31.nl/gifs/chrome.gif" width="88" height="31" alt="Chrome button" class="border border-border/40" loading="lazy" />
+          </a>
+
+          <img src="https://cyber.dabamos.de/88x31/construction.gif" width="88" height="31" alt="Under construction button" class="border border-border/40" loading="lazy" />
+
+          <a href="https://gizzy.gay" target="_blank" rel="noopener noreferrer">
+            <img src="https://gizzy.gay/88x31.svg" width="88" height="31" alt="Gizzy's site button" class="border border-border/40" loading="lazy" />
+          </a>
+
+          <img src="https://anlucas.neocities.org/apple.gif" width="88" height="31" alt="Apple button" class="border border-border/40" loading="lazy" />
+
+          <img src="https://anlucas.neocities.org/macmade-wht.gif" width="88" height="31" alt="Made on Mac button" class="border border-border/40" loading="lazy" />
+
+          <img src="https://inkedpetal.dev/88x31/18.png" width="88" height="31" alt="Inked Petal button" class="border border-border/40" loading="lazy" />
+
+          <a href="https://www.valen.zip" target="_blank" rel="noopener noreferrer">
+            <img src="https://www.valen.zip/button-win98.gif" width="88" height="31" alt="Valen's site's Windows 98 themed button" class="border border-border/40" loading="lazy" />
+          </a>
+
+          <img src="https://cdn.vejas.zip/assets/buttons/github.gif" width="88" height="31" alt="GitHub button" class="border border-border/40" loading="lazy" />
+
+          <img src="https://cdn.vejas.zip/assets/buttons/notai.png" width="88" height="31" alt="Not made by AI button" class="border border-border/40" loading="lazy" />
+
+          <img src="https://cdn.vejas.zip/assets/buttons/homeass.gif" width="88" height="31" alt="Home Assistant button" class="border border-border/40" loading="lazy" />
+
+          <img src="https://cdn.vejas.zip/assets/buttons/hackclub.gif" width="88" height="31" alt="Hack Club button" class="border border-border/40" loading="lazy" />
+        </div>
+      </div>
     </div>
+  </div>
 </Layout>
