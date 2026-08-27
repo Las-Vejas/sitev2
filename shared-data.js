@@ -16,7 +16,7 @@ export const userData = {
     discord: "https://discord.com/",
     slack: "https://hackclub.enterprise.slack.com/team/U0930DMR4BA",
   },
-
+  repoUrl: "https://github.com/las-vejas/sitev2",
   // CDN Configuration
   cdn: {
     baseUrl: "https://cdn.vejas.zip",

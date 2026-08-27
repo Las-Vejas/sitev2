@@ -20,7 +20,7 @@ const {
   type = "website",
 } = Astro.props
 
-const pageTitle = title === "vejas.zip" ? title : `${title} — vejas.zip`
+const pageTitle = title === "vejas.zip" ? title : `${title} - vejas.zip`
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? "https://vejas.zip")
 const ogImageURL = new URL(image, Astro.site ?? "https://vejas.zip")
 ---
@@ -95,6 +95,8 @@ const ogImageURL = new URL(image, Astro.site ?? "https://vejas.zip")
     <Navbar />
     <slot />
     <Footer />
+    <script src="https://pagering.gideon.sh/embed.js" defer></script>
   </ThemeProvider>
+  
 </body>
 </html>
