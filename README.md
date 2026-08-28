@@ -1,36 +1,12 @@
 # Vejas.zip v2
 
+![My hackatime stats](https://hackatime.hackclub.com/api/v1/badge/U0930DMR4BA/Las-Vejas/sitev2)
+
 This is my personal page made with Astro and Tailwind.
 
-## Adding components
+I built it so that people could learn about what I do and find where to contact me. 
 
-To add components to my app, run the following command:
+The site is in the page ysws webring by gideon.
+I  added a guestbook that is built using supabase as db.
 
-```bash
-npx shadcn@latest add button
-```
-
-This will place the ui components in the `src/components` directory.
-
-## Using components
-
-To use the components in your app, import them in an `.astro` file:
-
-```astro
----
-import { Button } from "@/components/ui/button"
----
-
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Astro App</title>
-  </head>
-  <body>
-    <div class="grid h-screen place-items-center content-center">
-      <Button>Button</Button>
-    </div>
-  </body>
-</html>
-```
+all the project pages and blog pages are written in markdown.

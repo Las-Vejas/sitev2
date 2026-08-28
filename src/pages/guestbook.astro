@@ -5,7 +5,7 @@ import GuestbookCard from '@/components/GuestbookCard.astro';
 import { supabase } from '../db/supabase';
 import { POSTCARD_DESIGNS } from '@/lib/postcards';
 
-const { data, error } = await supabase.from("messages").select('*').order('created_at', { ascending: false });
+const { data, error } = await supabase.from('messages').select('*').order('created_at', { ascending: false });
 
 type Message = {
   id: number;
@@ -18,34 +18,34 @@ type Message = {
 };
 
 const messages = (data || []) as Message[];
-export const prerender = false
+export const prerender = false;
 ---
 
 <Layout>
-  {POSTCARD_DESIGNS.map(({ imageUrl }) => (
-    <link rel="preload" as="image" href={imageUrl} />
-  ))}
+  {POSTCARD_DESIGNS.map(({ imageUrl }) => <link rel="preload" as="image" href={imageUrl} />)}
   <div class="min-h-screen antialiased font-sans flex flex-col justify-between">
     <main class="w-full mx-auto px-6 pb-16 flex-1 text-center">
       <div class="flex flex-col items-center justify-center text-center pt-32 pb-20 px-6">
         <h1 class="text-8xl font-serif mb-4">Guestbook</h1>
         <p class="text-muted-foreground text-sm">Feel free to leave a message or thoughts about my site!</p>
-    </div>
+      </div>
 
-      <div class="grid gap-6 p-4 grid-cols-[repeat(auto-fit,minmax(400px,1fr))]">
+      <div class="grid gap-6 p-4 grid-cols-1 justify-items-center sm:grid-cols-[repeat(auto-fit,minmax(400px,1fr))]">
         <GuestbookForm client:load />
-        {messages.map((msg) => (
-          <GuestbookCard
-            name={msg.name}
-            message={msg.message}
-            email={msg.email}
-            url={msg.url}
-            design={msg.design}
-            created_at={msg.created_at}
-          />
-        ))}
+        {
+          messages.map((msg) => (
+            <GuestbookCard
+              name={msg.name}
+              message={msg.message}
+              email={msg.email}
+              url={msg.url}
+              design={msg.design}
+              created_at={msg.created_at}
+            />
+          ))
+        }
       </div>
     </main>
   </div>
+<script src="https://pagering.gideon.sh/embed.js" defer></script>
 </Layout>
-

@@ -1,19 +1,9 @@
 ---
 import { userData } from '@/lib/user-data';
-import {execSync} from 'node:child_process'
 
-let commitHash = 'unknown';
-let commitDate = '';
+const commitHash = import.meta.env.CF_PAGES_COMMIT_SHA?.slice(0, 7) ?? 'unknown';
 
-try {
-    commitHash = execSync('git rev-parse --short HEAD').toString().trim();
-    const rawDate = execSync('git log -1 --format%cd --date=format:"%B %-d, %Y"').toString().trim();
-    commitDate = rawDate;
-} catch (err) {
-    console.warn('Could not get git commit info:', err)
-}
-
-const repoUrl = userData.repoUrl;
+const repoUrl = userData.social.github.url;
 ---
 
 <footer class="flex flex-col items-center w-full py-16 px-6 gap-10 bg-background text-foreground text-center">
@@ -41,7 +31,6 @@ const repoUrl = userData.repoUrl;
   </div>
 
   <div class="text-sm font-serif tracking-wider text-muted-foreground">
-    commit <a href={`${repoUrl}/commit/${commitHash}`} target="_blank" rel="noopener noreferrer" class="text-foreground hover:text-muted-foreground hover:underline underline-offset-4">{commitHash}</a> on {commitDate}
-  </div>
+        commit <a href={`${repoUrl}/commit/${commitHash}`} target="_blank" rel="noopener noreferrer" class="text-foreground hover:text-muted-foreground hover:underline underline-offset-4">{commitHash}</a>  </div>
   <!-- integrate the github current commit pulling later -->
 </footer>
