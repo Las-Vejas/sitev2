@@ -10,3 +10,7 @@ The site is in the page ysws webring by gideon.
 I  added a guestbook that is built using supabase as db.
 
 all the project pages and blog pages are written in markdown.
+
+
+## setup
+use npm install to install dependancies, and npm run dev to start a local dev server.
