@@ -84,6 +84,7 @@ const ogImageURL = new URL(image, Astro.site ?? "https://vejas.zip")
       localStorage.setItem("theme", el.classList.contains("dark") ? "dark" : "light")
     })
   </script>
+  <slot name="head" />
 </head>
 <body>
   <ThemeProvider
