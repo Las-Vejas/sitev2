@@ -10,6 +10,8 @@ const GitHubCDN = 'https://cdn.vejas.zip/assets/icons/Github.svg';
 const Blueprint = 'https://cdn.vejas.zip/assets/icons/bp.svg';
 const FT = 'https://cdn.vejas.zip/assets/icons/image.png';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
   return projects.map((p) => ({ params: { slug: p.id } }));
