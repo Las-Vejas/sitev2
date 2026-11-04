@@ -54,6 +54,7 @@ const ogImageURL = new URL(image, Astro.site ?? "https://vejas.zip")
   <link rel="preconnect" href={userData.cdn.baseUrl} />
   <ClientRouter/>
   <script is:inline>
+
     // 1. On first load: read theme from localStorage (or system preference) and apply it
     const getPreferredTheme = () => {
       const stored = localStorage.getItem("theme")
@@ -84,6 +85,7 @@ const ogImageURL = new URL(image, Astro.site ?? "https://vejas.zip")
       localStorage.setItem("theme", el.classList.contains("dark") ? "dark" : "light")
     })
   </script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="ba3fb1b7-8b18-4eba-8e47-2ad86852c393"></script>
   <slot name="head" />
 </head>
 <body>
