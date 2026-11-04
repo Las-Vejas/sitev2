@@ -49,7 +49,7 @@ const ogImageURL = new URL(image, Astro.site ?? "https://vejas.zip")
   <meta name="twitter:title" content={pageTitle} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImageURL} />
-
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="ba3fb1b7-8b18-4eba-8e47-2ad86852c393"></script>
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9236c0af92354b85802c370f4a9e731a"}'></script><!-- End Cloudflare Web Analytics -->
   <link rel="preconnect" href={userData.cdn.baseUrl} />
   <ClientRouter/>
@@ -85,7 +85,7 @@ const ogImageURL = new URL(image, Astro.site ?? "https://vejas.zip")
       localStorage.setItem("theme", el.classList.contains("dark") ? "dark" : "light")
     })
   </script>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="ba3fb1b7-8b18-4eba-8e47-2ad86852c393"></script>
+  
   <slot name="head" />
 </head>
 <body>
