@@ -53,9 +53,10 @@ const ogImageURL = new URL(image, Astro.site ?? "https://vejas.zip")
   defer 
   is:inline
   data-astro-rerun
-  src="https://analytics.homeless.gay/recorder.js" 
+  src="https://analytics.homeless.gay/script.js" 
   data-website-id="970fb5f1-05af-4b57-b884-c8d948929220"
 ></script>
+  <script defer is:inline data-astro-rerun src="https://analytics.homeless.gay/recorder.js" data-website-id="970fb5f1-05af-4b57-b884-c8d948929220"></script>
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9236c0af92354b85802c370f4a9e731a"}'></script><!-- End Cloudflare Web Analytics -->
   <link rel="preconnect" href={userData.cdn.baseUrl} />
   <ClientRouter/>
